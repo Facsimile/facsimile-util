@@ -33,7 +33,6 @@
  */
 package org.facsim.util.test
 
-import org.facsim.test.CommonTestMethods
 import org.facsim.util.Version
 import org.scalatest.FunSpec
 

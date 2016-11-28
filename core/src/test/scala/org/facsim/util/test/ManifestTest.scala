@@ -35,11 +35,10 @@ package org.facsim.util.test
 
 import java.time.ZonedDateTime
 import java.time.format.DateTimeParseException
-import org.facsim.LibResource
+import org.facsim.util.LibResource
 import org.facsim.dummy.Dummy
 import org.facsim.invalid.Invalid
 import org.facsim.missing.Missing
-import org.facsim.test.CommonTestMethods
 import org.facsim.util.{Manifest, jarFile, resourceUrl}
 import org.scalatest.FunSpec
 import scala.util.Properties
@@ -70,7 +69,7 @@ with CommonTestMethods {
   /**
    * Verify that missing attribute values are described by NoSuchElementExceptions.
    */
-  def assertNoSuchAttribute(e: NoSuchElementException, name: String): Unit = {
+  def assertNoSuchAttribute(e: NoSuchElementException, name: String) = {
     assert(e.getMessage === LibResource("Manifest.NoSuchElement.Attribute", name))
   }
 

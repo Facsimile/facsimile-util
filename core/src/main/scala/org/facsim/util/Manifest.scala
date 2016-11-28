@@ -34,7 +34,6 @@
 package org.facsim.util
 
 import java.time.ZonedDateTime
-import java.time.format.DateTimeParseException
 import java.util.jar.{Manifest => JManifest}
 
 /**
@@ -142,7 +141,7 @@ final class Manifest private(manifest: JManifest) {
    *
    * @throws NoSuchElementException if the manifest has no inception timestamp.
    *
-   * @throws DateTimeParseException if the inception timestamp could not be parsed correctly.
+   * @throws java.time.format.DateTimeParseException if the inception timestamp could not be parsed correctly.
    *
    * @since 0.0
    */
@@ -162,7 +161,7 @@ final class Manifest private(manifest: JManifest) {
    *
    * @throws NoSuchElementException if the manifest has no build timestamp.
    *
-   * @throws DateTimeParseException if the build timestamp could not be parsed correctly.
+   * @throws java.time.format.DateTimeParseException if the build timestamp could not be parsed correctly.
    *
    * @since 0.0
    */

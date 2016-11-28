@@ -33,8 +33,6 @@
  */
 package org.facsim.util
 
-import org.facsim.requireNonNull
-
 /**
  * Encapsulate software version information, providing information about each version's components.
  *
@@ -62,7 +60,7 @@ final class Version private[facsim](version: String) {
  *
  * @since 0.0
  */
-private object Version {
+object Version {
 
   /**
    * Create a new version instance from a version string.

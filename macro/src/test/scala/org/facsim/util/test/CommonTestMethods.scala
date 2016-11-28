@@ -29,12 +29,11 @@
  *
  *   http://facsim.org/Documentation/CodingStandards/
  * =====================================================================================================================
- * Scala source file belonging to the org.facsim.test package.
+ * Scala source file belonging to the org.facsim.util.test package.
  */
-package org.facsim.test
+package org.facsim.util.test
 
-import org.facsim.util.{LibResource, requireFinite, RequireFiniteKey, requireNonNull, RequireNonNullKey, requireValid,
-RequireValidKey}
+import org.facsim.util._
 import org.scalatest.FunSpec
 
 /**
@@ -51,7 +50,7 @@ trait CommonTestMethods {
    *
    * @param argName Name of the argument that was found to be `null`.
    */
-  final def assertRequireNonNullMsg(e: NullPointerException, argName: String): Unit = {
+  final def assertRequireNonNullMsg(e: NullPointerException, argName: String) = {
     assert(e.getMessage === LibResource(RequireNonNullKey, argName))
   }
 
@@ -65,7 +64,7 @@ trait CommonTestMethods {
    *
    * @param argValue Invalid argument value.
    */
-  final def assertRequireValidMsg(e: IllegalArgumentException, argName: String, argValue: Any): Unit = {
+  final def assertRequireValidMsg(e: IllegalArgumentException, argName: String, argValue: Any) = {
     assert(e.getMessage === LibResource(RequireValidKey, argName, argValue.toString))
   }
 
@@ -79,7 +78,7 @@ trait CommonTestMethods {
    *
    * @param argValue Invalid argument value.
    */
-  final def assertRequireFiniteMsg(e: IllegalArgumentException, argName: String, argValue: Double): Unit = {
+  final def assertRequireFiniteMsg(e: IllegalArgumentException, argName: String, argValue: Double) = {
     assert(e.getMessage === LibResource(RequireFiniteKey, argName, argValue))
   }
 }

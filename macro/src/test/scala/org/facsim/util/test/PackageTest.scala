@@ -29,11 +29,11 @@
  *
  *   http://facsim.org/Documentation/CodingStandards/
  * =====================================================================================================================
- * Scala source file belonging to the org.facsim.test package.
+ * Scala source file belonging to the org.facsim.util.test package.
  */
 package org.facsim.util.test
 
-import org.facsim.test.CommonTestMethods
+import org.facsim.util.{requireFinite, requireNonNull, requireValid}
 import org.scalatest.FunSpec
 
 //scalastyle:off scaladoc
@@ -48,7 +48,7 @@ with CommonTestMethods {
   /*
    * Test fixture description.
    */
-  describe("org.facsim package") {
+  describe("org.facsim.util package") {
 
     /*
      * requireNonNull macro tests.

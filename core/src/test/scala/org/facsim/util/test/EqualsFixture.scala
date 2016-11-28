@@ -29,9 +29,9 @@
  *
  *   http://facsim.org/Documentation/CodingStandards/
  * =====================================================================================================================
- * Scala source file belonging to the org.facsim.test package.
+ * Scala source file belonging to the org.facsim.util.test package.
  */
-package org.facsim.test
+package org.facsim.util.test
 
 //scalastyle:off scaladoc
 //scalastyle:off multiple.string.literals

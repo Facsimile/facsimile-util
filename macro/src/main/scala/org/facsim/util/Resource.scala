@@ -29,7 +29,7 @@
  *
  *   http://facsim.org/Documentation/CodingStandards/
  * =====================================================================================================================
- * Scala source file belonging to the org.facsim package.
+ * Scala source file belonging to the org.facsim.util package.
  */
 package org.facsim.util
 

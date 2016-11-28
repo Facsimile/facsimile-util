@@ -29,13 +29,12 @@
  *
  *   http://facsim.org/Documentation/CodingStandards/
  * =====================================================================================================================
- * Scala source file belonging to the org.facsim.test package.
+ * Scala source file belonging to the org.facsim.util.test package.
  */
 package org.facsim.util.test
 
 import java.util.{GregorianCalendar, Locale, MissingResourceException}
-import org.facsim.test.CommonTestMethods
-import org.facsim.util.Resource
+import org.facsim.util.LibResource
 import org.scalatest.FunSpec
 
 //scalastyle:off scaladoc
@@ -43,8 +42,8 @@ import org.scalatest.FunSpec
 /**
  * Test harness for the [[LibResource]] object.
  *
- * Although `LibResource` is a very basic implementation of [[Resource]], it was producing some very different results,
- * hence this specific test fixture, based upon the `ResourceTest` test fixture.
+ * Although `LibResource` is a very basic implementation of [[org.facsim.util.Resource]], it was producing some very
+ * different results, hence this specific test fixture, based upon the `ResourceTest` test fixture.
  */
 class LibResourceTest
 extends FunSpec

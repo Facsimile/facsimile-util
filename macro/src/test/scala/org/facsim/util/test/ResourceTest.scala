@@ -35,7 +35,6 @@ package org.facsim.util.test
 
 import java.util.{GregorianCalendar, Locale, MissingResourceException}
 import org.facsim.util.Resource
-import org.facsim.test.CommonTestMethods
 import org.scalatest.FunSpec
 
 //scalastyle:off scaladoc

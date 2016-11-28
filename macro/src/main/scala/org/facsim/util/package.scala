@@ -37,14 +37,23 @@ package org.facsim
  * The Scala "macros" language feature is currently experimental, and needs to be enabled via the import statement
  * below.
  */
+import java.io.File
+import java.net.{URI, URL}
+import java.time.ZonedDateTime
+import java.util.jar.JarFile
+import java.util.{Date, GregorianCalendar}
 import scala.annotation.elidable
+import scala.language.implicitConversions
 import scala.language.experimental.macros
 import scala.reflect.macros.blackbox.Context
 
 /**
- * ''[[http://facsim.org/ Facsimile Utility]]'' Library.
+ * ''[[http://facsim.org/ Facsimile]]'' Simulation Library miscellaneous utilities.
  *
- * A collection of utilities required by other ''Facsimile'' projects.
+ * Package providing miscellaneous utility elements.
+ *
+ * @note ''Facsimile'' is, first and foremost, a simulation library. It is not a collection of miscellaneous, utility
+ * classes and functions with general applicability. Only general utilities are publicly accessible.
  *
  * @since 0.0
  */
@@ -54,6 +63,21 @@ package object util {
    * Regular expression to match class argument name.
    */
   private val ClassArgRE = """[0-9A-Za-z_]+\.this\.([0-9A-Za-z_]+)""".r
+
+  /**
+   * Regular expression for identifying periods in package path names.
+   */
+  private val PeriodRegEx = """(\.)""".r
+
+  /**
+   * Regular expression for extracting a ''jar'' file URI from a URL.
+   */
+  private val JarUriRegEx = """^jar\:(.+)\!.+$""".r
+
+  /**
+   * Java file separator.
+   */
+  private[facsim] val FS = "/"
 
   /**
    * Key for assertNonNull string resource.
@@ -74,6 +98,114 @@ package object util {
    * Key for requireFinite string resource.
    */
   private[util] val RequireFiniteKey = "requireFinite"
+
+  /**
+   * Implicit conversion of a [[ZonedDateTime]] to a [[Date]].
+   *
+   * Conversion between pre-''Java 1.8'' `java.util` time classes (such as [[Date]], [[GregorianCalendar]], etc.) and
+   * the new post-''Java 1.8'' `java.time` time classes ([[java.time.Instant]], [[ZonedDateTime]], etc) is cumbersome at
+   * best. The former could be dispensed with completely if if wasn't for the fact that [[java.text.MessageFormat]]
+   * currently supports only the [[Date]] class. This function makes working with the new time classes, and text message
+   * formatting, a little more straightforward.
+   *
+   * @param date Date, expressed as a [[ZonedDateTime]] to be converted.
+   *
+   * @return `date` expressed as a [[Date]].
+   *
+   * @throws NullPointerException if `date` is null.
+   *
+   * @throws IllegalArgumentException if `date` is too large to represent as a [[GregorianCalendar]]
+   * value.
+   */
+  private[facsim] implicit def toDate(date: ZonedDateTime): Date = GregorianCalendar.from(date).getTime
+
+  /**
+   * Obtain the resource URL associated with a class's type information.
+   *
+   * @param elementType Element type instance for which a resource ''URL'' will be sought.
+   *
+   * @return Resource ''URL'' associated with `elementType`, if found.
+   *
+   * @throws NoSuchElementException if `elementType` has no associated resource ''URL''.
+   */
+  private[util] def resourceUrl(elementType: Class[_]) = {
+
+    /*
+     * Argument validation.
+     */
+    assert(elementType ne null) //scalastyle:ignore null
+
+    /*
+     * NOTE: This is a rather convoluted process. If you know of a better (i.e. simpler or quicker) approach, feel free
+     * to implement it.
+     *
+     * Retrieve the name of the class, and convert it into a resource path. To do this, we need to prefix it with a
+     * slash, replace all periods with slashes and add a ".class" extension.
+     *
+     * Note: The Class[T].getSimpleName method crashes for some Scala elements. This is a known bug. Refer to
+     * [[https://issues.scala-lang.org/browse/SI-2034 Scala Issue SI-2034]] for further details.
+     */
+    val name = elementType.getName
+
+    val path = FS + PeriodRegEx.replaceAllIn(name, FS) + ".class"
+
+    /*
+     * Now retrieve the resource URL for this element path.
+     */
+    val url = elementType.getResource(path)
+
+    /*
+     * If the element URL is null, then its provenance is unknown and we will not be able to find a manifest for it.
+     * Throw an exception instead.
+     *
+     * Typically, we will fail to find a URL if element identifies a Java primitive.
+     */
+    if(url eq null) { //scalastyle:ignore null
+      throw new NoSuchElementException(LibResource("resourceUrl.NoSuchElement", name))
+    }
+
+    /*
+     * Return the resulting URL.
+     */
+    url
+  }
+
+  /**
+   * Obtain the resource URL associated with a class's type information.
+   *
+   * @param url ''URL'' identifying the location of a ''JAR'' file.
+   *
+   * @return ''JAR'' file identified by the `url`, if found.
+   *
+   * @throws NoSuchElementException if `elementType` has no associated resource ''URL''.
+   */
+  private[util] def jarFile(url: URL) = {
+
+    /*
+     * Argument validation.
+     */
+    assert(url ne null) //scalastyle:ignore null
+
+    /*
+     * If the URL identifies a JAR file, then it will be of the (String) form:
+     *
+     * jar:file:/{path-of-jar-file}!{elementPath}
+     *
+     * In order to create a JAR file instance, we need to convert this into a hierarchical URI. We do this using a
+     * regular expression extraction. What we want is just the file:{path-of-jar-file} portion of the URL.
+     *
+     * If we do not have such a match, then the element was not loaded from a JAR file, so throw an exception instead.
+     */
+    val jarUri = url.toString match {
+      case JarUriRegEx(uri) => new URI(uri)
+      case _ => throw new NoSuchElementException(LibResource("jarFile.NoSuchElement", url.toString))
+    }
+
+    /*
+     * Create and return a JarFile instance from the obtained uri.
+     */
+    new JarFile(new File(jarUri))
+  }
 
   /**
    * Assertion that a value is not null.
