@@ -292,7 +292,7 @@ object Manifest {
      * If there is no manifest, then throw an exception.
      */
     if(manifest eq null) { //scalastyle:ignore null
-      throw new NoSuchElementException(LibResource("Manifest.NoSuchElement.Missing", elementType.getName,jar.getName))
+      throw new NoSuchElementException(LibResource("Manifest.NoSuchElement.Missing", elementType.getName, jar.getName))
     }
 
     /*
