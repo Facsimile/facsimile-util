@@ -34,7 +34,7 @@
 package org.facsim.util
 
 import java.text.MessageFormat
-import java.util.{MissingResourceException, ResourceBundle}
+import java.util.ResourceBundle
 
 /**
  * Provides access to a locale-specific resource bundle belonging to a library or application.
@@ -51,7 +51,7 @@ import java.util.{MissingResourceException, ResourceBundle}
  *
  * @throws NullPointerException if `bundleName` is `null`.
  *
- * @throws MissingResourceException if a resource bundle with base name `bundleName` cannot be found.
+ * @throws java.util.MissingResourceException if a resource bundle with base name `bundleName` cannot be found.
  *
  * @see [[ResourceBundle]] for information on Java resource bundles.
  *
@@ -101,7 +101,7 @@ class Resource(bundleName: String) {
    *
    * @throws NullPointerException if `key` is `null`.
    *
-   * @throws MissingResourceException if there is no string resource indexed by `key`.
+   * @throws java.util.MissingResourceException if there is no string resource indexed by `key`.
    *
    * @throws ClassCastException if the resource indexed by `key` is not a string.
    *
