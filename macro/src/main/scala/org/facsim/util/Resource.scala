@@ -34,14 +34,14 @@
 package org.facsim.util
 
 import java.text.MessageFormat
-import java.util.{Locale, MissingResourceException, ResourceBundle}
+import java.util.{MissingResourceException, ResourceBundle}
 
 /**
  * Provides access to a locale-specific resource bundle belonging to a library or application.
  *
  * Further information on how locale-specific resources are identified is at [[ResourceBundle]].
  *
- * The user's current preferred locale is identified through a call to [[Locale.getDefault]].
+ * The user's current preferred locale is identified through a call to [[java.util.Locale.getDefault]].
  *
  * @todo Add code to retrieve package files, including images, manifests, etc.
  *
@@ -55,7 +55,7 @@ import java.util.{Locale, MissingResourceException, ResourceBundle}
  *
  * @see [[ResourceBundle]] for information on Java resource bundles.
  *
- * @see [[Locale]] for information on Java locale processing.
+ * @see [[java.util.Locale]] for information on Java locale processing.
  *
  * @since 0.0
  */
