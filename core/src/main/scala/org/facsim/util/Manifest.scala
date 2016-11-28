@@ -36,7 +36,6 @@ package org.facsim.util
 import java.time.ZonedDateTime
 import java.time.format.DateTimeParseException
 import java.util.jar.{Manifest => JManifest}
-import org.facsim.{LibResource, requireNonNull}
 
 /**
  * Provide ''manifest'' information for a library or application.
@@ -120,7 +119,7 @@ final class Manifest private(manifest: JManifest) {
      * If there was no such attribute, then throw a NoSuchElementException, as required.
      */
     if(attribute eq null) { //scalastyle:ignore null
-      throw new NoSuchElementException(LibResource("util.Manifest.NoSuchElement.Attribute", name))
+      throw new NoSuchElementException(LibResource("Manifest.NoSuchElement.Attribute", name))
     }
 
     /*
@@ -294,8 +293,7 @@ object Manifest {
      * If there is no manifest, then throw an exception.
      */
     if(manifest eq null) { //scalastyle:ignore null
-      throw new NoSuchElementException(LibResource("util.Manifest.NoSuchElement.Missing", elementType.getName,
-      jar.getName))
+      throw new NoSuchElementException(LibResource("Manifest.NoSuchElement.Missing", elementType.getName,jar.getName))
     }
 
     /*

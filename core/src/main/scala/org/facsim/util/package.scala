@@ -66,7 +66,7 @@ package object util {
   /**
    * Java file separator.
    */
-  private[facsim] val fs = "/"
+  private[facsim] val FS = "/"
 
   /**
    * Implicit conversion of a [[ZonedDateTime]] to a [[Date]].
@@ -115,7 +115,7 @@ package object util {
      * [[https://issues.scala-lang.org/browse/SI-2034 Scala Issue SI-2034]] for further details.
      */
     val name = elementType.getName
-    val path = fs + PeriodRegEx.replaceAllIn(name, fs) + ".class"
+    val path = FS + PeriodRegEx.replaceAllIn(name, FS) + ".class"
 
     /*
      * Now retrieve the resource URL for this element path.
@@ -129,7 +129,7 @@ package object util {
      * Typically, we will fail to find a URL if element identifies a Java primitive.
      */
     if(url eq null) { //scalastyle:ignore null
-      throw new NoSuchElementException(LibResource("util.resourceUrl.NoSuchElement", name))
+      throw new NoSuchElementException(LibResource("resourceUrl.NoSuchElement", name))
     }
 
     /*
@@ -166,7 +166,7 @@ package object util {
      */
     val jarUri = url.toString match {
       case JarUriRegEx(uri) => new URI(uri)
-      case _ => throw new NoSuchElementException(LibResource("util.jarFile.NoSuchElement", url.toString))
+      case _ => throw new NoSuchElementException(LibResource("jarFile.NoSuchElement", url.toString))
     }
 
     /*

@@ -33,7 +33,7 @@
  */
 package org.facsim.test
 
-import org.facsim.{LibResource, requireFinite, RequireFiniteKey, requireNonNull, RequireNonNullKey, requireValid,
+import org.facsim.util.{LibResource, requireFinite, RequireFiniteKey, requireNonNull, RequireNonNullKey, requireValid,
 RequireValidKey}
 import org.scalatest.FunSpec
 

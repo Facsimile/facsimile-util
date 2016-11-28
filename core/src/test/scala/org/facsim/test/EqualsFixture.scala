@@ -38,7 +38,7 @@ package org.facsim.test
 /**
  * Fixture trait for testing if an associated object implements the ''equals contract''.
  *
- * @tparam V Type, implementing the [[scala.Equals]] trait, to be tested.
+ * @tparam V Type, implementing the [[Equals]] trait, to be tested.
  */
 trait EqualsFixture[V <: Equals] {
 
@@ -61,7 +61,7 @@ trait EqualsFixture[V <: Equals] {
    *
    * @note None of the values in this list should be of type `V`. However, to improve the thoroughness of the testing,
    * if possible the contents of these objects should match the contents of some of the objects in
-   * [[org.facsim.test.EqualsFixture.valueSample]].
+   * [[EqualsFixture.valueSample]].
    *
    * @return List of values of a different type to `V`.
    */

@@ -71,7 +71,7 @@ with CommonTestMethods {
    * Verify that missing attribute values are described by NoSuchElementExceptions.
    */
   def assertNoSuchAttribute(e: NoSuchElementException, name: String): Unit = {
-    assert(e.getMessage === LibResource("util.Manifest.NoSuchElement.Attribute", name))
+    assert(e.getMessage === LibResource("Manifest.NoSuchElement.Attribute", name))
   }
 
   /*
@@ -105,7 +105,7 @@ with CommonTestMethods {
         val e = intercept[NoSuchElementException] {
           Manifest(c)
         }
-        assert(e.getMessage === LibResource("util.resourceUrl.NoSuchElement", c.getName))
+        assert(e.getMessage === LibResource("resourceUrl.NoSuchElement", c.getName))
       }
 
       /*
@@ -121,7 +121,7 @@ with CommonTestMethods {
           Manifest(c)
         }
         val url = resourceUrl(c)
-        assert(e.getMessage === LibResource("util.jarFile.NoSuchElement", url.toString))
+        assert(e.getMessage === LibResource("jarFile.NoSuchElement", url.toString))
       }
 
       /*
@@ -135,7 +135,7 @@ with CommonTestMethods {
         }
         val url = resourceUrl(c)
         val jar = jarFile(url)
-        assert(e.getMessage === LibResource("util.Manifest.NoSuchElement.Missing", c.getName, jar.getName))
+        assert(e.getMessage === LibResource("Manifest.NoSuchElement.Missing", c.getName, jar.getName))
       }
 
       /*

@@ -39,7 +39,7 @@ import org.scalatest.FunSpec
 //scalastyle:off scaladoc
 //scalastyle:off multiple.string.literals
 /**
- * Test behaviors for [[scala.Equals!]] trait-implementing classes.
+ * Test behaviors for [[Equals]] trait-implementing classes.
  *
  * This trait can be used as part of the test suite for a class that must honor the ''equals contract'':
  *
@@ -50,17 +50,17 @@ import org.scalatest.FunSpec
  * - ''Consistent'': `x == y` must always hold `true`, or always hold `false`, if `x` & `y` are not modified
  * (guaranteed if `x` & `y` are immutable).
  * - `x != y` if `x` and `y` are not comparable objects, regardless of contents, for various non-`null` `x` & `y`.
- * - `x != null` for various non-`null` `x`. Should not see [[NullPointerException!]] thrown.
+ * - `x != null` for various non-`null` `x`. Should not see [[NullPointerException]] thrown.
  * - If `x == y`, then verify also that `x.hashMap = y.hashMap`, for various non-`null` `x` & `y`.
  * - etc.
  *
- * @tparam V Type, implementing the [[scala.Equals!]] trait, to be tested.
+ * @tparam V Type, implementing the [[Equals]] trait, to be tested.
  */
 trait EqualsBehaviors[V <: Equals] {
   this: FunSpec =>
 
   /**
-   * Verify a [[scala.Equals]]-implementing object.
+   * Verify a [[Equals]]-implementing object.
    */
   final def equalsBehavior(equalsFixture: EqualsFixture[V]): Unit = {
 

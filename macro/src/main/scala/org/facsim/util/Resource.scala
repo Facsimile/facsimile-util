@@ -35,8 +35,6 @@ package org.facsim.util
 
 import java.text.MessageFormat
 import java.util.{Locale, MissingResourceException, ResourceBundle}
-import org.facsim.LibResource
-import org.facsim.RequireNonNullKey
 
 /**
  * Provides access to a locale-specific resource bundle belonging to a library or application.
