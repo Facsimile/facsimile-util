@@ -88,7 +88,7 @@ with CommonTestMethods {
      * requireFinite tests.
      */
     describe(".requireFinite(Double)") {
-      def doFailure(value: Double): Unit = {
+      def doFailure(value: Double) = {
         val e = intercept[IllegalArgumentException] {
           requireFinite(value)
         }

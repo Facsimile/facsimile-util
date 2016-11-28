@@ -50,7 +50,9 @@ package org.facsim.util
 final class Version private[facsim](version: String) {
 
   /**
-   * @inheritdoc
+   * Returns a representation of this object as a String.
+   *
+   * @return String representation of this object.
    */
   override def toString = version
 }

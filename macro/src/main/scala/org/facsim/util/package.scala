@@ -114,8 +114,7 @@ package object util {
    *
    * @throws NullPointerException if `date` is null.
    *
-   * @throws IllegalArgumentException if `date` is too large to represent as a [[GregorianCalendar]]
-   * value.
+   * @throws IllegalArgumentException if `date` is too large to represent as a [[GregorianCalendar]] value.
    */
   private[facsim] implicit def toDate(date: ZonedDateTime): Date = GregorianCalendar.from(date).getTime
 
