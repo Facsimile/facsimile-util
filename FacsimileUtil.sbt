@@ -38,7 +38,7 @@ import FacsimileBuild._
 //
 // This is the "normalized name" of this project, also known as a Maven/SBT/Ivy artifact name (such as "myfabapp"). This
 // must also match the name of the project on GitHub.
-facsimileProjId in Global := "util"
+facsimileProjId in Global := "facsimile-util"
 
 // Name of this Facsimile project.
 //

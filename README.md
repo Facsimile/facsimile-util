@@ -11,12 +11,12 @@ Facsimile is open-source/free software and is distributed under version 3 of the
 
 Current status of official master _Facsimile Util_ branch:
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.facsim/util_2.12/badge.svg)]
-(https://maven-badges.herokuapp.com/maven-central/org.facsim/util_2.12)
-[![Build Status](https://travis-ci.org/Facsimile/util.svg?branch=master)]
-(https://travis-ci.org/Facsimile/util)
-[![Coverage Status](https://coveralls.io/repos/Facsimile/util/badge.svg)]
-(https://coveralls.io/r/Facsimile/util)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.facsim/facsimile-util_2.12/badge.svg)]
+(https://maven-badges.herokuapp.com/maven-central/org.facsim/facsimile-util_2.12)
+[![Build Status](https://travis-ci.org/Facsimile/facsimile-util.svg?branch=master)]
+(https://travis-ci.org/Facsimile/facsimile-util)
+[![Coverage Status](https://coveralls.io/repos/Facsimile/facsimile-util/badge.svg)]
+(https://coveralls.io/r/Facsimile/facsimile-util)
 [![Join the chat at https://gitter.im/Facsimile](https://badges.gitter.im/Join%20Chat.svg)]
 (https://gitter.im/Facsimile?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
