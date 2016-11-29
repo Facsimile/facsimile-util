@@ -48,6 +48,7 @@
  *   https://github.com/Facsimile/skeleton
  */
 
+import com.typesafe.sbt.pgp.PgpKeys
 import java.time.ZonedDateTime
 import java.util.jar.Attributes.Name
 import sbt._
@@ -59,6 +60,8 @@ import sbtunidoc.Plugin.{ScalaUnidoc, UnidocKeys, unidocSettings}
 import scoverage.ScoverageKeys
 import xerial.sbt.Sonatype.sonatypeSettings
 
+// Disable certain Scalastyle features to make this file intelligible in IntelliJ IDEA.
+//scalastyle:off scaladoc
 /*
  * Wrap all contents in a FacsimileSettings object for inclusion in client projects.
  */
@@ -125,14 +128,12 @@ object FacsimileBuild {
   /*
    * Regular expression for matching release versions.
    */
-  private val ReleaseVersion =
-    """(\d+)\.(\d+)\.(\d+)""".r
+  private val ReleaseVersion = """(\d+)\.(\d+)\.(\d+)""".r
 
   /*
    * Regular expression for matching snapshot versions.
    */
-  private val SnapshotVersion =
-    """(\d+)\.(\d+)\.(\d+)-SNAPSHOT""".r
+  private val SnapshotVersion = """(\d+)\.(\d+)\.(\d+)-SNAPSHOT""".r
 
   /*
    * Function to determine the copyright range.
@@ -143,9 +144,7 @@ object FacsimileBuild {
    */
   private def copyrightRange = {
     val startYear = facsimileProjStartDate.getYear.toString
-
     val currentYear = facsimileProjBuildDate.getYear.toString
-
     if(startYear == currentYear) startYear
     else startYear + "-" + currentYear
   }
@@ -409,7 +408,7 @@ object FacsimileBuild {
      *
      * The -Ymacro-no-expand prevents macro definitions from being expanded in macro sub-classes.
      */
-    scalacOptions in(ScalaUnidoc, UnidocKeys.unidoc) := Seq(
+    scalacOptions in (ScalaUnidoc, UnidocKeys.unidoc) := Seq(
       "-diagrams",
       "-doc-footer",
       s"Copyright © ${copyrightRange}, ${organizationName.value}. All rights reserved.",
@@ -426,7 +425,7 @@ object FacsimileBuild {
     ),
     autoAPIMappings := true,
     apiMappings += (
-    unmanagedBase.value / "jt.jar" -> url("http://docs.oracle.com/javase/8/docs/api/")
+      unmanagedBase.value / "jt.jar" -> url("http://docs.oracle.com/javase/8/docs/api/")
     ),
 
     /*
@@ -444,11 +443,39 @@ object FacsimileBuild {
      * The jar file should be sealed so that the packages contained cannot be extended. We also add inception & build
      * timestamps for information purposes.
      */
-    packageOptions in(Compile, packageBin) ++= Seq(
+    packageOptions in (Compile, packageBin) ++= Seq(
       Package.ManifestAttributes(Name.SEALED -> "true"),
       Package.ManifestAttributes("Inception-Timestamp" -> facsimileProjStartDate.toString),
       Package.ManifestAttributes("Build-Timestamp" -> facsimileProjBuildDate.toString)
     ),
+
+    /*
+     * SBT-GPG plugin configuration.
+     *
+     * For best results, all releases and code release signing should be undertaken on a Linux system via GNU GPG.
+     */
+    PgpKeys.useGpg in Global := true,
+
+    /*
+     * Identify the key to be used to sign release files.
+     *
+     * Facsimile software is published to the Sonatype OSS repository, with artifacts signed as part of the release
+     * process. (Releases are performed using the SBT "release" command.)
+     *
+     * To obtain the hexadecimal key ID, enter the command:
+     *
+     *   gpg --keyid-format 0xLONG --list-secret-keys authentication@facsim.org
+     *
+     * Look for the key ID in the line beginning with "sec".
+     *
+     * Note that, for security, the private signing key and passcode are not publicly available.
+     */
+    PgpKeys.pgpSigningKey in Global := Some(0xC08B4D86EACCE720L),
+
+    /*
+     * Sign releases prior to publication.
+     */
+    releasePublishArtifactsAction := PgpKeys.publishSigned.value,
 
     /*
      * Employ the following custom release process.
@@ -536,3 +563,4 @@ object FacsimileBuild {
     releaseVersionFile := file("Version.sbt")
   )
 }
+//scalastyle:on scaladoc
